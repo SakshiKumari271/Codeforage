@@ -1,7 +1,6 @@
 import smtplib
 import dns.resolver
 import socket
-from pypdf import PdfReader
 
 def get_mx_record(domain):
     try:
@@ -71,14 +70,3 @@ def verify_email_smtp(email):
         details.update({"status": "Error", "reason": str(e)})
         
     return details
-
-def generate_permutations(first_name, last_name, domain):
-    fn, ln, d = first_name.lower().strip(), last_name.lower().strip(), domain.lower().strip()
-    if not fn or not ln or not d: return []
-    return [f"{fn}.{ln}@{d}", f"{fn}@{d}", f"{fn}{ln}@{d}", f"{fn[0]}{ln}@{d}", f"{fn}_{ln}@{d}"]
-
-def extract_text_from_pdf(file_stream):
-    try:
-        reader = PdfReader(file_stream)
-        return "\n".join([p.extract_text() for p in reader.pages if p.extract_text()])
-    except: return ""
