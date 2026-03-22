@@ -70,3 +70,8 @@ def verify_email_smtp(email):
         details.update({"status": "Error", "reason": str(e)})
         
     return details
+
+def generate_permutations(first_name, last_name, domain):
+    fn, ln, d = first_name.lower().strip(), last_name.lower().strip(), domain.lower().strip()
+    if not fn or not ln or not d: return []
+    return [f"{fn}.{ln}@{d}", f"{fn}@{d}", f"{fn}{ln}@{d}", f"{fn[0]}{ln}@{d}", f"{fn}_{ln}@{d}"]
