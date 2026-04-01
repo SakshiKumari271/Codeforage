@@ -1,7 +1,6 @@
 import smtplib
 import dns.resolver
 import socket
-from pypdf import PdfReader
 
 def get_mx_record(domain):
     try:
@@ -15,7 +14,6 @@ def verify_email_smtp(email):
     domain = email.split('@')[-1]
     mx_record = get_mx_record(domain)
     
-    # Initialize default details
     details = {
         "email": email,
         "mx_record": mx_record or "None",
@@ -26,25 +24,21 @@ def verify_email_smtp(email):
         "smtp_banner": None
     }
     
-    # Check free provider
     free_providers = ["gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com"]
     if domain.lower() in free_providers:
         details["is_free_provider"] = True
         
-    # Check role account
     role_accounts = ["admin", "info", "support", "sales", "contact", "marketing"]
     local_part = email.split('@')[0].lower()
     if local_part in role_accounts:
         details["is_role_account"] = True
         
-    # Check SPF
     try:
         txt_records = dns.resolver.resolve(domain, 'TXT')
         details["has_spf"] = any('v=spf1' in str(r.strings) for r in txt_records)
     except Exception:
         pass
         
-    # Check DMARC
     try:
         dmarc_records = dns.resolver.resolve(f"_dmarc.{domain}", 'TXT')
         details["has_dmarc"] = any('v=DMARC1' in str(r.strings) for r in dmarc_records)
@@ -56,14 +50,12 @@ def verify_email_smtp(email):
         return details
 
     try:
-        # Increase timeout slightly and try to catch specific socket errors
         server = smtplib.SMTP(timeout=10)
         code, message = server.connect(mx_record, 25)
         details["smtp_banner"] = message.decode('utf-8') if isinstance(message, bytes) else str(message)
         
         server.helo('localhost')
         server.mail('test@example.com')
-        # Here we only test if the recipient is accepted
         rcpt_code, rcpt_message = server.rcpt(email)
         server.quit()
 
@@ -79,14 +71,7 @@ def verify_email_smtp(email):
         
     return details
 
-# Keep generate_permutations and extract_text_from_pdf as they were
 def generate_permutations(first_name, last_name, domain):
     fn, ln, d = first_name.lower().strip(), last_name.lower().strip(), domain.lower().strip()
     if not fn or not ln or not d: return []
     return [f"{fn}.{ln}@{d}", f"{fn}@{d}", f"{fn}{ln}@{d}", f"{fn[0]}{ln}@{d}", f"{fn}_{ln}@{d}"]
-
-def extract_text_from_pdf(file_stream):
-    try:
-        reader = PdfReader(file_stream)
-        return "\n".join([p.extract_text() for p in reader.pages if p.extract_text()])
-    except: return ""
