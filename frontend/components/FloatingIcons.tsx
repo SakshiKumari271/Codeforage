@@ -1,15 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Shield, Zap, Search, Code, Globe } from "lucide-react";
+import { Mail, Shield, Zap, Search, Code, Globe, Cpu, Database, Layers, MousePointer2, Sparkles } from "lucide-react";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 const icons = [
-  { Icon: Mail, x: "-20%", y: "15%", color: "text-blue-500", scale: 1.2, delay: 0 },
-  { Icon: Shield, x: "25%", y: "-10%", color: "text-indigo-500", scale: 1, delay: 2 },
-  { Icon: Zap, x: "-15%", y: "45%", color: "text-purple-500", scale: 0.8, delay: 4 },
-  { Icon: Search, x: "30%", y: "40%", color: "text-slate-400", scale: 1.1, delay: 1 },
-  { Icon: Code, x: "10%", y: "60%", color: "text-primary/40", scale: 0.9, delay: 3 },
-  { Icon: Globe, x: "-25%", y: "-5%", color: "text-accent/30", scale: 1.3, delay: 5 },
+  { Icon: Mail, x: "-42vw", y: "-35vh", color: "text-blue-500/30", scale: 1.2, delay: 0 },
+  { Icon: Shield, x: "40vw", y: "-25vh", color: "text-indigo-500/30", scale: 1, delay: 2 },
+  { Icon: Zap, x: "-35vw", y: "40vh", color: "text-purple-500/30", scale: 0.8, delay: 4 },
+  { Icon: Search, x: "42vw", y: "30vh", color: "text-slate-400/30", scale: 1.1, delay: 1 },
+  { Icon: Code, x: "32vw", y: "60vh", color: "text-primary/20", scale: 0.9, delay: 3 },
+  { Icon: Globe, x: "-45vw", y: "-5vh", color: "text-accent/20", scale: 1.3, delay: 5 },
+  { Icon: Cpu, x: "-38vw", y: "-20vh", color: "text-sky-500/20", scale: 1.1, delay: 3 },
+  { Icon: Database, x: "35vw", y: "10vh", color: "text-indigo-400/20", scale: 0.9, delay: 6 },
+  { Icon: Layers, x: "-40vw", y: "20vh", color: "text-violet-400/20", scale: 1.2, delay: 2 },
+  { Icon: MousePointer2, x: "45vw", y: "-40vh", color: "text-blue-400/20", scale: 1, delay: 7 },
+  { Icon: Sparkles, x: "-30vw", y: "65vh", color: "text-amber-400/20", scale: 1.1, delay: 4 },
+  { Icon: Code, x: "28vw", y: "-45vh", color: "text-emerald-400/20", scale: 0.8, delay: 8 },
 ];
 
 export function FloatingIcons() {
@@ -20,22 +32,23 @@ export function FloatingIcons() {
           key={i}
           initial={{ opacity: 0, scale: 0 }}
           animate={{
-            opacity: [0, 0.2, 0.1, 0],
+            opacity: [0, 0.4, 0.2, 0],
             scale: [0.8, item.scale, 0.8],
-            x: [item.x, `${parseInt(item.x) + 5}%`, item.x],
-            y: [item.y, `${parseInt(item.y) - 5}%`, item.y],
-            rotate: [0, 20, -20, 0],
+            rotate: [0, 15, -15, 0],
           }}
           transition={{
-            duration: 12,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut",
             delay: item.delay,
           }}
-          className={`absolute left-1/2 top-1/2 ${item.color}`}
-          style={{ transform: `translate(${item.x}, ${item.y})` }}
+          className={cn("absolute", item.color)}
+          style={{ 
+            left: `calc(50% + ${item.x})`,
+            top: `calc(50% + ${item.y})`
+          }}
         >
-          <item.Icon size={48} strokeWidth={1} />
+          <item.Icon size={56} strokeWidth={1} />
         </motion.div>
       ))}
     </div>
