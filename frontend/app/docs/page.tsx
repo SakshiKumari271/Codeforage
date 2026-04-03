@@ -40,7 +40,7 @@ const sections = [
 
 export default function DocsPage() {
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-16 sm:px-8">
+    <div className="container mx-auto max-w-4xl px-4 pt-32 pb-16 sm:px-8">
       <div className="flex flex-col gap-12">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl mb-6">

@@ -88,7 +88,7 @@ export default function EmailDrafterPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-16 sm:px-8">
+    <div className="container mx-auto max-w-6xl px-4 pt-32 pb-16 sm:px-8">
       <div className="flex flex-col gap-12 lg:flex-row">
         {/* Settings Side */}
         <div className="lg:w-1/3 flex flex-col gap-8">
