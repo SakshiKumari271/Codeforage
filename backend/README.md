@@ -92,6 +92,39 @@ Generates variations of an email and verifies them. Supports single-name and bul
 
 ---
 
+### Email Permutator (CSV Upload)
+Processes a CSV file containing first names, last names, and company domains. Supports robust encoding (UTF-8 BOM) and flexible header mapping.
+
+- **URL:** `/api/upload_csv`
+- **Method:** `POST`
+- **Headers:** `Content-Type: multipart/form-data`
+- **Request Body (Form Data):**
+  - `file`: (File) The `.csv` file.
+
+#### **CSV Requirements:**
+- **Supported Encodings:** UTF-8, UTF-8-sig (BOM).
+- **Required Columns:** (Uses flexible mapping, ignores case/spaces)
+  - `First Name` (aliases: `firstname`, `first`, `fname`)
+  - `Last Name` (aliases: `lastname`, `last`, `lname`)
+  - `Company/Domain` (aliases: `companyname`, `company`, `domain`, `website`, `url`)
+
+#### **Response:**
+```json
+{
+  "results": [
+    {
+      "first_name": "John",
+      "last_name": "Doe",
+      "domain": "google.com",
+      "verifications": [...]
+    },
+    ...
+  ]
+}
+```
+
+---
+
 ### Draft Email (AI)
 Extracts text from a resume PDF and generates a cold email draft using LangChain (OpenAI or Groq).
 
@@ -125,12 +158,15 @@ All API endpoints return standard HTTP status codes:
 
 ## Endpoint Verification Status
 
-Last verified on: 2026-04-02
+Last verified on: 2026-04-05
 
 | Route Path | Method | Feature | Status |
 | :--- | :--- | :--- | :--- |
 | `/` | `GET` | Home / Status Check | ✅ SUCCESS (200 OK) |
 | `/api/verify-single` | `POST` | SMTP Verification | ✅ SUCCESS (200 OK) |
 | `/api/permutator` | `POST` | Bulk Permutator (`finds` list) | ✅ SUCCESS (200 OK) |
-| `/api/permutator` | `POST` | Legacy Permutator (Backward compatibility) | ✅ SUCCESS (200 OK) |
+| `/api/upload_csv` | `POST` | CSV Bulk Permutator (Robust) | ✅ SUCCESS (200 OK) |
 | `/api/draft-email` | `POST` | AI Email Drafting (PDF Upload) | ✅ SUCCESS (200 OK) |
+
+---
+***By CodeForage Team***

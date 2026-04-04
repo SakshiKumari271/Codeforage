@@ -158,6 +158,7 @@ cython_debug/
 # Project-specific ignores
 /tmp/
 test.pdf
+test.csv
 
 # AI agent context files
 CLAUDE.md
