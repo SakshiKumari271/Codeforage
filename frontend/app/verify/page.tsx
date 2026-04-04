@@ -1,18 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  ShieldCheck, 
-  Lock, 
-  Globe, 
-  Cpu, 
-  CheckCircle2, 
-  XCircle, 
-  Loader2, 
+import {
+  Globe,
+  Cpu,
+  CheckCircle2,
+  XCircle,
+  Loader2,
   ArrowLeft,
-  Mail,
   Server,
-  Activity,
   Search
 } from "lucide-react";
 import Link from "next/link";
@@ -20,6 +16,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { VerificationResult } from "@/types/interfaces";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,10 +25,10 @@ function cn(...inputs: ClassValue[]) {
 function VerifyContent() {
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email");
-  
+
   const [email, setEmail] = useState(emailParam || "");
   const [loading, setLoading] = useState(!!emailParam);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<VerificationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const performVerify = async (targetEmail: string) => {
@@ -64,7 +61,7 @@ function VerifyContent() {
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <main className="flex-grow pt-32 pb-20">
         <div className="container mx-auto max-w-4xl px-4 sm:px-8">
-          
+
           <Link href="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors font-bold text-sm mb-8 group">
             <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
             Back to Dashboard
@@ -84,7 +81,7 @@ function VerifyContent() {
             <div className="bg-white rounded-3xl border border-slate-200 p-2 shadow-xl flex flex-col sm:flex-row gap-2">
               <div className="relative flex-grow">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                <input 
+                <input
                   type="email"
                   placeholder="Analyze another email..."
                   value={email}
@@ -93,7 +90,7 @@ function VerifyContent() {
                   className="w-full bg-transparent pl-12 pr-4 py-4 text-slate-900 placeholder:text-slate-400 outline-none font-bold"
                 />
               </div>
-              <button 
+              <button
                 onClick={() => performVerify(email)}
                 disabled={loading}
                 className="premium-gradient px-8 py-4 rounded-2xl font-black text-white shadow-lg transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50"
@@ -103,7 +100,7 @@ function VerifyContent() {
             </div>
 
             {loading && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="py-20 flex flex-col items-center gap-4 text-slate-400"
@@ -121,7 +118,7 @@ function VerifyContent() {
             )}
 
             {result && !loading && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="grid gap-6"
@@ -129,8 +126,8 @@ function VerifyContent() {
                 {/* Status Hero Card */}
                 <div className={cn(
                   "p-8 sm:p-12 rounded-[2.5rem] border-2 flex flex-col items-center text-center gap-6 shadow-2xl relative overflow-hidden",
-                  result.status === "Valid" 
-                    ? "bg-emerald-50 border-emerald-200" 
+                  result.status === "Valid"
+                    ? "bg-emerald-50 border-emerald-200"
                     : "bg-rose-50 border-rose-200"
                 )}>
                   <div className={cn(
@@ -143,15 +140,15 @@ function VerifyContent() {
                     <h2 className="text-3xl font-black text-slate-900 mb-2">{result.email}</h2>
                     <div className={cn(
                       "inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-widest border",
-                      result.status === "Valid" 
-                        ? "bg-emerald-100 text-emerald-700 border-emerald-200" 
+                      result.status === "Valid"
+                        ? "bg-emerald-100 text-emerald-700 border-emerald-200"
                         : "bg-rose-100 text-rose-700 border-rose-200"
                     )}>
                       {result.status === "Valid" ? "Verified & Deliverable" : "Verification Failed"}
                     </div>
                   </div>
                   <p className="text-slate-600 font-medium max-w-lg">
-                    {result.status === "Valid" 
+                    {result.status === "Valid"
                       ? "Success. The recipient server accepted the handshake protocol. This mailbox is active and ready to receive mail."
                       : `Result: ${result.reason}. The recipient server rejected the protocol or the domain is not configured for mail.`
                     }
@@ -223,7 +220,7 @@ function VerifyContent() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* SMTP RAW BUFFER */}
                   <div className="md:col-span-2 bg-slate-950 rounded-3xl p-8 shadow-inner border border-white/5">
                     <div className="flex items-center gap-3 mb-4">

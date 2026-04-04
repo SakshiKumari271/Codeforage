@@ -1,19 +1,20 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Plus, Trash2, Globe, Send, User, CheckCircle2, XCircle, Loader2, Mail } from "lucide-react";
 import { useState } from "react";
-import { clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { PermutatorResult } from "@/types/interfaces";
 
-function cn(...inputs: any[]) {
+function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 export default function PermutatorPage() {
   const [domain, setDomain] = useState("");
   const [employees, setEmployees] = useState([{ id: 1, first: "", last: "" }]);
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<PermutatorResult[]>([]);
   const [loading, setLoading] = useState(false);
 
   const addEmployee = () => {
@@ -92,7 +93,7 @@ export default function PermutatorPage() {
                   Target Employees
                 </label>
                 <div className="flex flex-col gap-3">
-                  {employees.map((emp, index) => (
+                  {employees.map((emp) => (
                     <motion.div
                       layout
                       initial={{ opacity: 0, x: -10 }}
@@ -196,7 +197,7 @@ export default function PermutatorPage() {
                       <span className="text-xs text-muted-foreground uppercase">{domain}</span>
                     </div>
                     <div className="flex flex-col gap-2">
-                      {res.verifications.map((v: any, index: number) => (
+                      {res.verifications.map((v, index) => (
                         <div key={index} className="flex items-center justify-between gap-3 text-sm">
                           <span className="font-mono text-xs opacity-80 break-all">{v.email}</span>
                           <span className={cn(
