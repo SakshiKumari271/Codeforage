@@ -68,7 +68,7 @@ function VerifyContent() {
           </Link>
 
           <header className="mb-12">
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-4">
+            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
               Technical <span className="premium-text-gradient">Audit</span>
             </h1>
             <p className="text-slate-500 text-lg font-medium">
@@ -125,19 +125,19 @@ function VerifyContent() {
               >
                 {/* Status Hero Card */}
                 <div className={cn(
-                  "p-8 sm:p-12 rounded-[2.5rem] border-2 flex flex-col items-center text-center gap-6 shadow-2xl relative overflow-hidden",
+                  "p-6 sm:p-12 rounded-[2.5rem] border-2 flex flex-col items-center text-center gap-6 shadow-2xl relative overflow-hidden",
                   result.status === "Valid"
                     ? "bg-emerald-50 border-emerald-200"
                     : "bg-rose-50 border-rose-200"
                 )}>
                   <div className={cn(
-                    "p-6 rounded-[2rem] shadow-lg",
+                    "p-4 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] shadow-lg",
                     result.status === "Valid" ? "bg-white text-emerald-500" : "bg-white text-rose-500"
                   )}>
-                    {result.status === "Valid" ? <CheckCircle2 size={48} strokeWidth={2.5} /> : <XCircle size={48} strokeWidth={2.5} />}
+                    {result.status === "Valid" ? <CheckCircle2 className="w-8 h-8 sm:w-12 sm:h-12" strokeWidth={2.5} /> : <XCircle className="w-8 h-8 sm:w-12 sm:h-12" strokeWidth={2.5} />}
                   </div>
-                  <div>
-                    <h2 className="text-3xl font-black text-slate-900 mb-2">{result.email}</h2>
+                  <div className="w-full">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 mb-2 break-all leading-tight px-2">{result.email}</h2>
                     <div className={cn(
                       "inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-black text-xs uppercase tracking-widest border",
                       result.status === "Valid"
@@ -166,9 +166,9 @@ function VerifyContent() {
                       <h3 className="font-black text-slate-900 text-lg uppercase tracking-tight">DNS Configuration</h3>
                     </div>
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center pb-4 border-b border-slate-50">
-                        <span className="text-slate-400 font-bold text-xs uppercase">MX Records</span>
-                        <span className="text-slate-900 font-mono text-xs font-bold truncate max-w-[200px]">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-4 border-b border-slate-50 gap-2">
+                        <span className="text-slate-400 font-bold text-[10px] sm:text-xs uppercase">MX Records</span>
+                        <span className="text-slate-900 font-mono text-[10px] sm:text-xs font-bold truncate sm:max-w-[200px]">
                           {result.mx_record}
                         </span>
                       </div>
