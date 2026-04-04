@@ -23,12 +23,14 @@ graph TD
         Frontend --> UI_Perm[Email Permutator Page]
         Frontend --> UI_Verify[SMTP Verification Page]
         Frontend --> UI_Draft[AI Email Drafter Page]
+        Frontend --> UI_Docs[Documentation Page]
     end
     
     Frontend -->|API Calls| Backend[Flask Backend API]
     
     subgraph "Backend Engine"
         Backend -->|Permutations| PermEngine[Permutation Logic]
+        Backend -->|CSV Processing| CSVBulk[CSV Bulk Import Engine]
         Backend -->|Real-time Audit| SMTPCheck[SMTP Verification Engine]
         Backend -->|AI Processing| AIDraft[AI Drafting Service]
     end
@@ -36,15 +38,17 @@ graph TD
     subgraph "External Integrations"
         AIDraft -->|LLM Prompt| LLM[OpenAI / Groq API]
         SMTPCheck -->|Validation| SMTPProtocol[DNS & SMTP Protocols]
+        CSVBulk -->|Permute & Verify| PermEngine
     end
 ```
 
 ## ✨ Core Features
 
 - **SMTP Verification**: Real-time technical audits for single email addresses using SMTP protocols.
-- **Email Permutator**: Generates and verifies email variations at scale for bulk outreach.
+- **Email Permutator**: Generates and verifies email variations at scale with support for manual entry and bulk CSV imports.
+- **Results Export**: Instantly export verified permutation results to CSV or copy valid addresses to clipboard.
 - **AI Email Drafter**: Context-aware cold email generation using PDF resumes and custom prompts (GPT-4o/Llama-3).
-- **Premium UI/UX**: A glassmorphic, responsive interface built for speed and visual excellence.
+- **Premium UI/UX**: A glassmorphic, responsive interface built for speed and visual excellence with full mobile support.
 
 ## 🛠️ Technology Stack
 

@@ -23,7 +23,8 @@ Technical audit tool for single email SMPT verification.
 ### Email Permutator
 Bulk and single email variation generator and verifier.
 - **Path:** `/permutator`
-- **Integration:** Calls `/api/permutator` on the backend.
+- **Features:** Manual entry, CSV Bulk Import, Real-time status tracking, CSV Results Export.
+- **Integration:** Calls `/api/permutator` and `/api/upload_csv` on the backend.
 
 ### AI Email Drafter
 AI-powered cold email generation based on uploaded resume PDF and context.
@@ -79,7 +80,7 @@ NEXT_PUBLIC_API_URL=http://127.0.0.1:5000
 
 ## Page Implementation Status
 
-Last verified on: 2026-04-03
+Last verified on: 2026-04-05
 
 | Path | Feature | UI Implementation | Backend Integration |
 | :--- | :--- | :--- | :--- |
@@ -89,3 +90,6 @@ Last verified on: 2026-04-03
 | `/drafter` | AI Email Drafter | ✅ COMPLETE | ✅ SUCCESS |
 | `/docs` | Documentation | ✅ COMPLETE | N/A |
 
+---
+
+***By CodeForage Team***
