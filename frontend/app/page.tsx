@@ -95,26 +95,26 @@ export default function LandingPage() {
   if (!mounted) return <div className="min-h-screen bg-background" />;
 
   return (
-    <div ref={containerRef} className="relative flex flex-col gap-32 pb-32">
+    <div ref={containerRef} className="relative flex flex-col gap-20 md:gap-32 pb-32">
       <GridBackground />
       <FloatingIcons />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-16 overflow-hidden">
+      <section className="relative pt-32 sm:pt-40 pb-4 sm:pb-8 overflow-hidden">
         <div className="container mx-auto px-4 text-center sm:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-8 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary mb-4 backdrop-blur-sm"
           >
             <ShieldCheck size={14} />
             <span>Unrestricted Outreach Protocol</span>
           </motion.div>
 
-          <h1 className="text-6xl font-black tracking-tight text-slate-900 sm:text-8xl mb-8 leading-[1.1]">
+          <h1 className="text-5xl font-black tracking-tight text-slate-900 sm:text-7xl lg:text-8xl mb-8 leading-[1.1]">
             Outreach for <br />
-            <span className="relative inline-flex items-center justify-center min-w-[280px] sm:min-w-[420px] h-[1.2em]">
+            <span className="relative inline-flex items-center justify-center min-w-[200px] xs:min-w-[280px] sm:min-w-[420px] h-[1.2em]">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={words[index]}
@@ -134,7 +134,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto max-w-2xl text-xl text-slate-600 mb-12 leading-relaxed font-medium"
+            className="mx-auto max-w-2xl text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed font-medium px-4"
           >
             A calm, professional suite of tools to help you find, verify, and reach out to anyone.
             No gatekeeping. No trackers. Zero signups required.
@@ -144,7 +144,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col items-center justify-center gap-4 w-full max-w-2xl mx-auto"
+            className="flex flex-col items-center justify-center gap-4 w-full max-w-3xl mx-auto px-4"
           >
             {!quickResult ? (
               <form
@@ -186,43 +186,44 @@ export default function LandingPage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full p-6 rounded-[2rem] bg-white border border-slate-200 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6"
+                className="w-full p-6 sm:p-8 rounded-[2.5rem] bg-white border border-slate-200 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 overflow-hidden"
               >
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col sm:flex-row items-center gap-6 min-w-0 flex-grow">
                   <div className={cn(
-                    "p-4 rounded-2xl",
+                    "p-5 rounded-2xl flex-shrink-0 shadow-sm",
                     quickResult.status === "Valid" ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-600"
                   )}>
-                    {quickResult.status === "Valid" ? <CheckCircle2 size={32} /> : <XCircle size={32} />}
+                    {quickResult.status === "Valid" ? <CheckCircle2 size={36} /> : <XCircle size={36} />}
                   </div>
-                  <div className="text-left">
-                    <div className="text-xs uppercase tracking-widest font-black text-slate-400 mb-1">Status Result</div>
-                    <div className="text-xl font-black text-slate-900">{quickResult.email}</div>
-                    <div className={cn("text-sm font-bold", quickResult.status === "Valid" ? "text-emerald-500" : "text-rose-500")}>
+                  <div className="flex-grow min-w-0 text-center sm:text-left">
+                    <div className="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400 mb-1.5 opacity-80">Status Result</div>
+                    <div className="text-xl sm:text-xl font-black text-slate-900 break-all leading-tight mb-1.5">{quickResult.email}</div>
+                    <div className={cn("text-sm font-bold flex items-center justify-center sm:justify-start gap-2", quickResult.status === "Valid" ? "text-emerald-500" : "text-rose-500")}>
+                      <span className="w-2 h-2 rounded-full animate-pulse bg-current" />
                       {quickResult.status === "Valid" ? "Verified & Deliverable" : `Invalid Result: ${quickResult.reason}`}
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto flex-shrink-0">
                   <button
                     onClick={() => setQuickResult(null)}
-                    className="px-6 py-3 rounded-xl border border-slate-200 font-bold text-slate-600 hover:bg-slate-50 transition-colors"
+                    className="flex-1 lg:flex-none px-6 py-3.5 rounded-2xl border border-slate-200 font-bold text-slate-600 hover:bg-slate-50 transition-all hover:shadow-md text-sm whitespace-nowrap min-h-[52px]"
                   >
                     Clear
                   </button>
-                  <Link href={`/verify?email=${heroEmail}`}>
-                    <button className="premium-gradient px-6 py-3 rounded-xl font-bold text-white shadow-lg hover:shadow-primary/20 transition-all">
-                      View Detailed Audit
+                  <Link href={`/verify?email=${heroEmail}`} className="flex-1 lg:flex-none h-full">
+                    <button className="w-full h-full premium-gradient px-6 py-3.5 rounded-2xl font-bold text-white shadow-lg hover:shadow-primary/30 transition-all text-sm whitespace-nowrap min-h-[52px]">
+                      Detailed Audit
                     </button>
                   </Link>
                 </div>
               </motion.div>
             )}
 
-            <div className="flex items-center gap-6 mt-4 text-slate-400 text-[10px] font-black tracking-widest uppercase">
-              <span className="flex items-center gap-1.5"><ShieldCheck size={12} /> SMTP HANDSHAKE</span>
-              <span className="flex items-center gap-1.5"><Search size={12} /> MX ANALYSIS</span>
-              <span className="flex items-center gap-1.5"><Zap size={12} /> AI ASSIST</span>
+            <div className="flex flex-wrap items-center justify-center gap-y-4 gap-x-6 mt-2 sm:mt-4 text-slate-400 text-[10px] font-black tracking-widest uppercase">
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><ShieldCheck size={12} /> SMTP HANDSHAKE</span>
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><Search size={12} /> MX ANALYSIS</span>
+              <span className="flex items-center gap-1.5 whitespace-nowrap"><Zap size={12} /> AI ASSIST</span>
             </div>
           </motion.div>
         </div>
@@ -392,7 +393,7 @@ function InteractiveCTA() {
 
       <div
         style={{ transform: "translateZ(50px)" }}
-        className="rounded-[calc(2.5rem-2px)] bg-slate-950/80 backdrop-blur-3xl p-10 md:p-16 text-center relative overflow-hidden"
+        className="rounded-[calc(2.5rem-2px)] bg-slate-950/80 backdrop-blur-3xl p-8 sm:p-12 md:p-16 text-center relative overflow-hidden"
       >
         {/* Animated Feature Dock (Integrated Advantages) */}
         <div
@@ -418,7 +419,7 @@ function InteractiveCTA() {
 
         <h2
           style={{ transform: "translateZ(100px)" }}
-          className="text-4xl font-black text-white sm:text-6xl mb-6 leading-tight tracking-tight"
+          className="text-3xl font-black text-white sm:text-5xl lg:text-6xl mb-6 leading-tight tracking-tight px-4"
         >
           Elevate your <br className="sm:hidden" /> outreach today.
         </h2>
@@ -438,7 +439,7 @@ function InteractiveCTA() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group/btn relative bg-white text-slate-950 px-12 py-5 rounded-2xl font-black text-xl transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.2)] hover:shadow-white/20 flex items-center gap-3 overflow-hidden"
+              className="group/btn relative bg-white text-slate-950 px-8 sm:px-12 py-4 sm:py-5 rounded-2xl font-black text-lg sm:text-xl transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.2)] hover:shadow-white/20 flex items-center gap-3 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
               Initialize Protocol

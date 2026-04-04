@@ -34,16 +34,16 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-2 sm:p-4 transition-all duration-300">
       <nav
         className={cn(
           "w-full max-w-7xl rounded-2xl border transition-all duration-500",
           scrolled 
-            ? "border-indigo-500/20 bg-indigo-950/80 shadow-2xl backdrop-blur-xl py-2" 
-            : "border-transparent bg-transparent py-4"
+            ? "border-indigo-500/20 bg-indigo-950/80 shadow-2xl backdrop-blur-xl py-1.5 sm:py-2" 
+            : "border-transparent bg-transparent py-2 sm:py-4"
         )}
       >
-        <div className="container mx-auto flex items-center justify-between px-6">
+        <div className="container mx-auto flex items-center justify-between px-4 sm:px-6">
           {/* Logo */}
           <Link href="/" className="group flex items-center gap-3">
             <motion.div
@@ -54,7 +54,7 @@ export function Navbar() {
               <Code size={22} strokeWidth={2.5} />
             </motion.div>
             <span className={cn(
-              "text-xl font-extrabold tracking-tight transition-colors group-hover:text-primary",
+              "text-lg sm:text-xl font-extrabold tracking-tight transition-colors group-hover:text-primary",
               scrolled ? "text-white" : "text-slate-900"
             )}>
               Codeforage
@@ -127,13 +127,13 @@ export function Navbar() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="overflow-hidden md:hidden"
             >
-              <div className="mx-4 mt-4 space-y-2 rounded-2xl border border-border/50 bg-background/80 p-3 shadow-2xl backdrop-blur-xl">
+              <div className="mx-2 mt-2 space-y-1 rounded-2xl border border-border/50 bg-background/80 p-2 shadow-2xl backdrop-blur-xl overflow-y-auto max-h-[80vh]">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "flex items-center justify-between rounded-xl px-4 py-4 text-sm font-bold transition-all active:scale-95",
+                      "flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition-all active:scale-95",
                       pathname === item.href ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
                     )}
                     onClick={() => setIsOpen(false)}
@@ -147,7 +147,7 @@ export function Navbar() {
                 ))}
                 <Link
                   href="/permutator"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/20"
                   onClick={() => setIsOpen(false)}
                 >
                   <Rocket size={18} />

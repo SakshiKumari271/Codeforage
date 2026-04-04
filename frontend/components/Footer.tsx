@@ -13,10 +13,10 @@ export function Footer() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand Column */}
-          <div className="lg:col-span-4 flex flex-col gap-6">
+          <div className="lg:col-span-4 flex flex-col gap-8 lg:gap-6">
             <Link href="/" className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
                 <Code size={22} strokeWidth={2.5} />
@@ -78,7 +78,7 @@ export function Footer() {
           </div>
 
           {/* Links Grid */}
-          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-8 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-10 sm:gap-8">
             <div className="flex flex-col gap-6">
               <h4 className="text-sm font-bold uppercase tracking-widest text-white">Product</h4>
               <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
@@ -92,7 +92,11 @@ export function Footer() {
               <h4 className="text-sm font-bold uppercase tracking-widest text-white">Resources</h4>
               <ul className="flex flex-col gap-4 text-sm font-medium text-slate-400">
                 <li><Link href="/docs" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Documentation <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /></Link></li>
-                <li><Link href="/api" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">API Reference <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /></Link></li>
+                <li>
+                  <Link href="https://github.com/SakshiKumari271/Codeforage/blob/main/backend/README.md" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">
+                    API Reference <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
                 <li><Link href="/blog" className="hover:text-primary transition-colors inline-flex items-center gap-1 group">Engineering Blog <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" /></Link></li>
               </ul>
             </div>
