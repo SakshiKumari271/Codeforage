@@ -1,15 +1,16 @@
 "use client";
 
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { Mail, Search, Zap, Code, ShieldCheck, ArrowRight, CheckCircle2, Globe, Cpu, MousePointer2, Sparkles, Star, Lock, XCircle, Loader2, FileText } from "lucide-react";
+import { motion, AnimatePresence, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { Mail, Search, Zap, ShieldCheck, ArrowRight, CheckCircle2, Globe, MousePointer2, Sparkles, Lock, XCircle, Loader2, FileText } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { clsx } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { GridBackground } from "@/components/GridBackground";
 import { FloatingIcons } from "@/components/FloatingIcons";
+import { VerificationResult } from "@/types/interfaces";
 
-function cn(...inputs: any[]) {
+function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
@@ -59,7 +60,7 @@ export default function LandingPage() {
   const [index, setIndex] = useState(0);
   const [heroEmail, setHeroEmail] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
-  const [quickResult, setQuickResult] = useState<any>(null);
+  const [quickResult, setQuickResult] = useState<VerificationResult | null>(null);
 
   const containerRef = useRef(null);
 
@@ -72,7 +73,7 @@ export default function LandingPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: heroEmail }),
       });
-      const data = await res.json();
+      const data: VerificationResult = await res.json();
       setQuickResult(data);
     } catch (err) {
       console.error(err);
@@ -146,7 +147,7 @@ export default function LandingPage() {
             className="flex flex-col items-center justify-center gap-4 w-full max-w-2xl mx-auto"
           >
             {!quickResult ? (
-              <form 
+              <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   handleHeroVerify();
@@ -157,7 +158,7 @@ export default function LandingPage() {
                 <div className="relative flex flex-col sm:flex-row gap-2 p-2 bg-white/80 backdrop-blur-2xl rounded-[1.8rem] border border-white/20 shadow-2xl">
                   <div className="relative flex-grow">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                    <input 
+                    <input
                       type="email"
                       placeholder="Enter email to verify instantly..."
                       value={heroEmail}
@@ -166,7 +167,7 @@ export default function LandingPage() {
                       required
                     />
                   </div>
-                  <button 
+                  <button
                     disabled={isVerifying}
                     className="premium-gradient px-8 py-4 rounded-2xl font-black text-white shadow-lg transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 min-w-[140px]"
                   >
@@ -182,7 +183,7 @@ export default function LandingPage() {
                 </div>
               </form>
             ) : (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="w-full p-6 rounded-[2rem] bg-white border border-slate-200 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6"
@@ -203,7 +204,7 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button 
+                  <button
                     onClick={() => setQuickResult(null)}
                     className="px-6 py-3 rounded-xl border border-slate-200 font-bold text-slate-600 hover:bg-slate-50 transition-colors"
                   >
@@ -234,32 +235,32 @@ export default function LandingPage() {
           <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-3">Explore the Protocol Suite</h2>
           <p className="text-slate-500 font-medium">Professional-grade tools for every stage of your outreach pipeline.</p>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {[
-            { 
-              title: "Email Permutator", 
-              desc: "Generate and verify high-probability professional addresses from names.", 
-              icon: Globe, 
-              link: "/permutator", 
+            {
+              title: "Email Permutator",
+              desc: "Generate and verify high-probability professional addresses from names.",
+              icon: Globe,
+              link: "/permutator",
               btn: "Launch Permutator",
               color: "text-blue-600",
               bg: "bg-blue-50"
             },
-            { 
-              title: "AI Drafter", 
-              desc: "Design high-converting outreach messages using context-aware AI.", 
-              icon: Sparkles, 
-              link: "/drafter", 
+            {
+              title: "AI Drafter",
+              desc: "Design high-converting outreach messages using context-aware AI.",
+              icon: Sparkles,
+              link: "/drafter",
               btn: "Start Drafting",
               color: "text-violet-600",
               bg: "bg-violet-50"
             },
-            { 
-              title: "Technical Docs", 
-              desc: "Master the protocol and optimize your delivery rates with our guide.", 
-              icon: FileText, 
-              link: "/docs", 
+            {
+              title: "Technical Docs",
+              desc: "Master the protocol and optimize your delivery rates with our guide.",
+              icon: FileText,
+              link: "/docs",
               btn: "View Protocol",
               color: "text-emerald-600",
               bg: "bg-emerald-50"
@@ -295,7 +296,7 @@ export default function LandingPage() {
       <section className="container mx-auto px-4 sm:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Powerful by Design</h2>
-          <p className="text-slate-600 max-w-xl mx-auto">Every tool is optimized for conversion and built with the recruiter's workflow in mind.</p>
+          <p className="text-slate-600 max-w-xl mx-auto">Every tool is optimized for conversion and built with the recruiter&apos;s workflow in mind.</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {bentoFeatures.map((feature, i) => (
@@ -382,19 +383,19 @@ function InteractiveCTA() {
     >
       {/* Border Beam Effect */}
       <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden pointer-events-none">
-        <motion.div 
-           animate={{ rotate: 360 }}
-           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-           className="absolute -inset-[500%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_300deg,rgba(255,255,255,0.4)_360deg)] opacity-0 group-hover:opacity-100 transition-opacity"
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          className="absolute -inset-[500%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_300deg,rgba(255,255,255,0.4)_360deg)] opacity-0 group-hover:opacity-100 transition-opacity"
         />
       </div>
 
-      <div 
+      <div
         style={{ transform: "translateZ(50px)" }}
         className="rounded-[calc(2.5rem-2px)] bg-slate-950/80 backdrop-blur-3xl p-10 md:p-16 text-center relative overflow-hidden"
       >
         {/* Animated Feature Dock (Integrated Advantages) */}
-        <div 
+        <div
           style={{ transform: "translateZ(75px)" }}
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
@@ -404,7 +405,7 @@ function InteractiveCTA() {
             { label: "AI Powered", icon: Zap, color: "text-violet-400" },
             { label: "No Signup", icon: MousePointer2, color: "text-indigo-400" }
           ].map((item, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               whileHover={{ y: -5 }}
               className="flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-2 backdrop-blur-md"
@@ -415,26 +416,26 @@ function InteractiveCTA() {
           ))}
         </div>
 
-        <h2 
+        <h2
           style={{ transform: "translateZ(100px)" }}
           className="text-4xl font-black text-white sm:text-6xl mb-6 leading-tight tracking-tight"
         >
           Elevate your <br className="sm:hidden" /> outreach today.
         </h2>
-        
-        <p 
+
+        <p
           style={{ transform: "translateZ(75px)" }}
           className="text-slate-400 max-w-xl mx-auto mb-10 text-lg md:text-xl font-medium leading-relaxed"
         >
           A professional suite built for depth. We remove the barriers so you can focus on building connections that matter.
         </p>
 
-        <div 
+        <div
           style={{ transform: "translateZ(125px)" }}
           className="flex flex-col items-center gap-6"
         >
           <Link href="/permutator">
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group/btn relative bg-white text-slate-950 px-12 py-5 rounded-2xl font-black text-xl transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.2)] hover:shadow-white/20 flex items-center gap-3 overflow-hidden"
@@ -444,7 +445,7 @@ function InteractiveCTA() {
               <ArrowRight size={22} className="transition-transform group-hover/btn:translate-x-1" />
             </motion.button>
           </Link>
-          
+
           <div className="flex items-center gap-3 text-white/30 text-[10px] font-black tracking-[0.2em] uppercase">
             <span>ZERO TRACKERS • UNRESTRICTED ACCESS • NO SIGNUP</span>
           </div>
@@ -458,19 +459,12 @@ function InteractiveCTA() {
           className="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-[100px]"
         />
         <motion.div
-           animate={{ opacity: [0.1, 0.2, 0.1] }}
-           transition={{ duration: 7, repeat: Infinity }}
-           className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px]"
+          animate={{ opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 7, repeat: Infinity }}
+          className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px]"
         />
       </div>
     </motion.div>
   );
 }
 
-function SparklesIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M7.5 0.75L9 5.25L13.5 6L9.75 9L11.25 13.5L7.5 11.25L3.75 13.5L5.25 9L1.5 6L6 5.25L7.5 0.75Z" fill="currentColor" />
-    </svg>
-  );
-}
