@@ -21,9 +21,30 @@ def generate_email_draft(resume_text, context, provider='OpenAI', api_key=None, 
             llm = ChatGroq(model=model, groq_api_key=api_key)
 
         prompt = PromptTemplate.from_template(
-            "Write a cold email. Resume: {resume}. Context: {context}. Return Subject and Body."
+            "Write a professional cold email. "
+            "Resume: {resume}. "
+            "Context: {context}. "
+            "IMPORTANT: Return ONLY a valid JSON object with 'subject' and 'body' keys. "
+            "Do NOT include markdown links (use plain URLs). "
+            "Do NOT include labels like 'Subject:' or 'Body:' in the text. "
+            "LENGTH: Make it a moderate length (approx. 3 concise paragraphs). "
+            "STRUCTURE: Follow this exact spacing: "
+            "Salutation\n\n"
+            "Paragraphs separated by \n\n"
+            "Closing statement (e.g. 'Thank you...')\n\n"
+            "Sign-off (e.g. 'Best regards,')\n"
+            "Name\n\n"
+            "CRITICAL: The sign-off 'Best regards,' and your name MUST be on separate lines (use \\n between them)."
         )
         chain = prompt | llm | StrOutputParser()
-        return chain.invoke({"resume": resume_text[:4000], "context": context})
+        result = chain.invoke({"resume": resume_text[:4000], "context": context})
+        
+        # Clean potential markdown JSON fencing
+        if "```json" in result:
+            result = result.split("```json")[1].split("```")[0].strip()
+        elif "```" in result:
+            result = result.split("```")[1].split("```")[0].strip()
+            
+        return result.strip()
     except Exception as e:
         raise e

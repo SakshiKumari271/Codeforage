@@ -27,6 +27,17 @@ def draft_email():
             api_key=api_key,
             model=model
         )
+        
+        # Try to parse the draft as JSON if it looks like JSON
+        try:
+            import json
+            if isinstance(email_draft, str) and (email_draft.strip().startswith('{') or '"subject"' in email_draft.lower()):
+                parsed_draft = json.loads(email_draft)
+                return jsonify({"draft": parsed_draft})
+        except Exception:
+            # Fallback to returning the raw string if parsing fails
+            pass
+            
         return jsonify({"draft": email_draft})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
