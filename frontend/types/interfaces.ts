@@ -27,5 +27,6 @@ export interface Permutation {
 export interface PermutatorResult {
   first_name: string;
   last_name: string;
+  domain?: string;
   verifications: Permutation[];
 }

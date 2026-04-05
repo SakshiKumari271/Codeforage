@@ -7,8 +7,8 @@ This document tracks features, improvements, and experimental ideas to be implem
 - [ ] **About Page:** Create a page detailing the mission, tech stack, and team behind CodeForage.
 
 ## 🚀 Premium Features (High Priority)
-- [ ] **CSV Permutator Upload:** Support bulk email generation via CSV file uploads.
-- [ ] **Results Export:** Add CSV download functionality for verified permutator results.
+- [x] **CSV Permutator Upload:** Support bulk email generation via CSV file uploads.
+- [x] **Results Export:** Add CSV download functionality for verified permutator results.
 - [ ] **Automated Mail Sending:** Integrate SMTP/API (Resend/SendGrid) for direct email dispatch from the dashboard.
 - [ ] **User Authentication:** Implement secure login using Clerk or NextAuth.js.
 - [ ] **Data Persistence:** Add a database (PostgreSQL/MongoDB) to save generated permutations and email drafts.
@@ -16,7 +16,7 @@ This document tracks features, improvements, and experimental ideas to be implem
 
 ## ✨ Feature Enhancements
 - [ ] **LinkedIn Integration:** Tools for LinkedIn profile research and automated connection request drafting.
-- [ ] **Bulk Processing UI:** Improve the UI for handling 1000+ email permutations with better progress tracking.
+- [x] **Bulk Processing UI:** Improve the UI for handling 1000+ email permutations with better progress tracking.
 - [ ] **Advanced AI Context:** Allow users to provide their portfolio website or GitHub for more personalized email drafting.
 
 ## 🛠️ Technical Debt & Optimization
